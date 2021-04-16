@@ -16,4 +16,8 @@ class PID(control.TransferFunction):
         super().__init__(pid.num[0][0], pid.den[0][0])
         
 def closed_loop(tf):
-    return tf / (1 + tf)
+    num = tf.num[0][0]
+    den = tf.den[0][0]
+    n = num
+    d = np.polyadd(num, den)
+    return control.TransferFunction(n, d)
